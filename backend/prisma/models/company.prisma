@@ -1,0 +1,24 @@
+model Company {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String  @unique
+  description String
+
+  address Json
+
+  isHighlighted Boolean @default(false)
+  isActive      Boolean @default(true)
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  contacts Contact[]
+  images   Image[]
+  hours    Hours[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+  @@map("companies")
+}
